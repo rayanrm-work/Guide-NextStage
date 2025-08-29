@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NextStage — Guide Campus France</title>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ============ THEME ============ */
+    :root{
+      --primary: #5263FF;       /* Bleu NextStage */
+      --primary-2:#7C4DFF;      /* Violet */
+      --bg:#0a0b16;             /* Dark background */
+      --text:#e9ecff;           /* Light text */
+      --muted:#b6bdd7;
+      --card:#0f1226;           /* Card */
+      --ink:#0e1229;
+      --accent:#00D4FF;         /* Cyan */
+      --success:#59f3b6;
+      --warning:#ffd166;
+      --rose:#ff7ab6;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(180deg, #080912 0%, #0b0c18 40%, #0a0b16 100%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      overflow-x: hidden; /* Prevent horizontal scroll from parallax */
+    }
+    .container{width:min(1120px,92vw);margin-inline:auto}
+    .grid{display:grid;gap:22px}
+    a{color:inherit;text-decoration:none;}
+
+    /* ============ SCROLLBAR GLOBAL ============ */
+/* Pour Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 10px; /* largeur de la scrollbar verticale */
+  height: 10px; /* hauteur de la scrollbar horizontale */
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15,18,38,0.3); /* couleur du fond */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2)); /* couleur du curseur */
+  border-radius: 10px;
+  border: 2px solid rgba(0,0,0,0.2); /* un petit contour pour l’effet flottant */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--accent), var(--primary-2)); /* couleur au hover */
+  filter: brightness(1.2);
+}
+
+/* Pour Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) rgba(15,18,38,0.3);
+}
+
+
+    /* Fancy button */
+    .btn{display:inline-flex;align-items:center;gap:.6rem;border:0;cursor:pointer;padding:.9rem 1.2rem;border-radius:16px;font-weight:800;font-size:0.98rem;color:white;background: linear-gradient(135deg, var(--primary), var(--primary-2));box-shadow:0 10px 30px rgba(82,99,255,.35), inset 0 0 0 1px rgba(255,255,255,.08);transition:transform .2s ease, box-shadow .2s ease, filter .2s ease}
+    .btn:hover{transform:translateY(-2px);filter:saturate(120%);box-shadow:0 14px 36px rgba(124,77,255,.35)}
+    .ghost{background:transparent;border:1px solid rgba(255,255,255,.15)}
+
+    /* ============ HERO ============ */
+    header.hero{position:relative;overflow:hidden;isolation:isolate;padding:76px 0 116px;background:radial-gradient(1200px 400px at 110% -10%, rgba(124, 77, 255, .35) 0%, rgba(124,77,255,0) 60%), radial-gradient(900px 600px at -10% 40%, rgba(0, 212, 255, .25) 0%, rgba(0,212,255,0) 60%)}
+    /* Animated Orb Background */
+    .orb{
+      position:absolute;inset:auto -10% -40% -10%;height:680px;z-index:-1;
+      filter: blur(80px) saturate(130%);opacity:.32;
+      background:conic-gradient(from 210deg at 50% 50%, var(--primary), var(--accent), var(--primary-2), var(--primary));
+      border-radius:50%;
+      animation: orb-pulse 10s infinite alternate ease-in-out; /* Added animation */
+    }
+    @keyframes orb-pulse {
+      0% { transform: scale(1); opacity: 0.32; }
+      50% { transform: scale(1.05); opacity: 0.4; }
+      100% { transform: scale(1); opacity: 0.32; }
+    }
+
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:900;letter-spacing:.5px}
+    .brand i{font-size:1.35rem;color:var(--accent)}
+    /* New style for logo icon */
+    .brand .logo-icon {
+      font-size: 1.35rem; /* Match existing icon size */
+      color: var(--accent); /* Match existing icon color */
+      margin-right: 0.2rem; /* Small space between icon and text */
+    }
+    h1.title{font-family:"Playfair Display", serif;font-weight:800;line-height:1.02;font-size: clamp(2.4rem, 4vw + .8rem, 4.6rem);margin:18px 0 8px;background:linear-gradient(135deg, #fff, #c9d0ff 60%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 6px 40px rgba(124,77,255,.25)}
+    .subtitle{color:var(--muted);font-weight:400;max-width:68ch}
+    .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+    .pill{display:inline-flex;gap:.5rem;align-items:center;padding:.42rem .75rem;border-radius:999px;font-size:.82rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);backdrop-filter: blur(6px)}
+    .stat{background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px;text-align:center}
+    .stat b{font-size:1.6rem}
+
+    /* ============ PROGRESS BAR (Fixed at top) ============ */
+    .progress-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px; /* Hauteur de la barre */
+      background: rgba(26, 32, 64, 0.8); /* Fond légèrement transparent */
+      z-index: 999; /* Assure qu'elle est au-dessus des autres éléments */
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06), 0 2px 10px rgba(0,0,0,.3);
+      backdrop-filter: blur(5px); /* Effet de flou derrière la barre */
+      transform: translateY(-100%); /* Cache la barre initialement */
+      transition: transform 0.3s ease-out; /* Animation pour l'apparition */
+    }
+
+    .progress-container.show-progress {
+      transform: translateY(0); /* Affiche la barre */
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--primary));
+      border-radius: 0; /* Pas de bordure arrondie pour une barre pleine largeur */
+      transition: width 0.1s linear; /* Transition plus rapide pour la mise à jour */
+    }
+
+    /* Masquer l'ancienne barre de progression dans le header */
+    header.hero .progress {
+      display: none;
+    }
+
+    /* ============ QUOTE ============ */
+    section.quote{padding:46px 0}
+    .quote-card{
+      border-radius:26px;padding:28px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.12);backdrop-filter: blur(6px);
+      display:grid;grid-template-columns: 80px 1fr;align-items:center;gap:16px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      transform: translateY(var(--parallax-y, 0px)); /* Parallax effect */
+      transition: transform 0.1s linear; /* Smooth parallax */
+    }
+    .quote-card i{font-size:3.4rem;color:var(--warning);animation: quote-bounce 2s infinite ease-in-out;} /* Animated icon */
+    @keyframes quote-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    blockquote{margin:0;font-size:1.08rem;line-height:1.7}
+    .quote-author{margin-top:8px;color:var(--muted);font-size:.95rem}
+
+    /* ============ SEPARATORS ============ */
+    .sep{height:22px;background:radial-gradient(40% 60% at 50% 50%, rgba(124,77,255,.18), transparent 60%), radial-gradient(40% 60% at 60% 40%, rgba(0,212,255,.18), transparent 60%)}
+
+    /* ============ INTRO ============ */
+    section.intro{padding:12px 0 14px}
+    .lead{font-size:1.06rem;color:#e6e9ff}
+
+    /* ============ STEPS GRID ============ */
+    section.steps{padding:14px 0 40px}
+    .steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:20px;
+      position:relative;overflow:hidden;box-shadow: 0 16px 40px rgba(0,0,0,.35);
+      min-height:260px;transform:translateY(16px);opacity:0;
+      transition:transform .6s cubic-bezier(.2,.7,.2,1),opacity .6s, box-shadow .3s ease, transform .3s ease; /* Added box-shadow and transform for hover */
+      transform-style: preserve-3d; /* For 3D tilt */
+      cursor: pointer; /* Make cards clickable */
+    }
+    .card.show{transform:none;opacity:1}
+    /* 3D Tilt on hover */
+    .card:hover {
+      transform: perspective(1000px) rotateX(2deg) rotateY(2deg) translateY(-5px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+
+    .badge{
+      position:absolute;top:16px;right:16px;font-weight:800;font-size:.82rem;
+      letter-spacing:.8px;padding:.35rem .65rem;border-radius:999px;color:#0d1330;
+      background:linear-gradient(135deg, var(--success), #9cf6de);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
+      display: inline-flex; align-items: center; gap: .3rem; /* For icon animation */
+    }
+    .badge i { transition: transform 0.2s ease-out; } /* Icon animation */
+    .card:hover .badge i { transform: scale(1.1); }
+
+    .num{
+      position:absolute;left:-8px;top:-20px;font-weight:800;font-size:90px;
+      opacity:.12;background:linear-gradient(160deg, var(--primary), var(--accent));
+      -webkit-background-clip:text;color:transparent;line-height:1;user-select:none;
+      transition: transform 0.6s cubic-bezier(.2,.7,.2,1), opacity 0.6s; /* For reveal animation */
+    }
+    .card.show .num {
+      transform: translateY(0);
+      opacity: 0.12;
+    }
+    .card:not(.show) .num { /* Initial state for animation */
+      transform: translateY(20px);
+      opacity: 0;
+    }
+
+    .card h3{margin:22px 0 8px;font-size:1.15rem}
+    .card p{margin:0 0 10px;color:#e8eaf6}
+    .tip{margin-top:10px;border-left:4px solid var(--accent);padding:8px 10px;border-radius:8px;background:rgba(0,212,255,.08);color:#dff7ff}
+    .list{margin:8px 0 0 0;padding-left:18px}
+    .list li{margin:6px 0}
+
+    /* ============ CHECKLIST / ERREURS / FAQ ============ */
+    section.split{padding:14px 0 60px}
+    .split-grid{display:grid;grid-template-columns: 1.2fr .8fr;gap:20px}
+    .panel{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:20px}
+    .panel h4{margin:0 0 8px}
+    .q{margin:8px 0; cursor: pointer; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .q:last-child { border-bottom: none; }
+    .q b{display:block; position: relative; padding-right: 20px;}
+    .q b::after {
+      content: '\2b'; /* Plus sign */
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: transform 0.2s ease-out;
+    }
+    .q.active b::after {
+      content: '\2212'; /* Minus sign */
+      transform: translateY(-50%) rotate(180deg);
+    }
+    .q span{
+      display: none; /* Hidden by default */
+      margin-top: 8px;
+      color: var(--muted);
+      line-height: 1.5;
+      padding-right: 10px;
+    }
+    .q.active span { display: block; }
+
+
+    /* ============ CTA ============ */
+    section.cta{padding:32px 0 90px}
+    .cta-box{background: linear-gradient(135deg, rgba(82,99,255,.22), rgba(124,77,255,.18));border:1px solid rgba(255,255,255,.15);border-radius:26px;padding:26px;display:grid;gap:10px;text-align:center;box-shadow: 0 16px 50px rgba(82,99,255,.28)}
+    .cta-box h2{margin:4px 0 0;font-size:1.7rem}
+    .cta-box p{margin:0;color:#e3e6ff}
+
+    /* ============ FOOTER ============ */
+    footer{padding:30px 0;color:var(--muted);text-align:center;border-top:1px solid rgba(255,255,255,.08)}
+
+    /* ============ PRINT / PDF ============ */
+    @media print{
+      body{
+        background:#fff;
+        color:#222;
+        overflow: visible !important;
+        margin: 0; /* Supprime les marges par défaut du corps */
+        padding: 20px; /* Ajoute un peu de rembourrage pour éviter que le contenu ne touche les bords */
+      }
+      header.hero,
+      .sep,
+      section.quote,
+      section.intro,
+      section.cta,
+      footer,
+      .btn,
+      .progress-container { /* Masque la nouvelle barre de progression en impression */
+        display: none;
+      }
+      .container {
+        width: 100% !important; /* Utilise toute la largeur disponible */
+        margin: 0 !important; /* Supprime les marges automatiques */
+        padding: 0 !important; /* Supprime le padding du container */
+      }
+      .card,
+      .panel,
+      .quote-card,
+      .cta-box {
+        box-shadow: none;
+        border-color: #e5e7eb;
+        background: #fff;
+        color: #111;
+        page-break-inside: avoid; /* Empêche la coupure des éléments sur plusieurs pages */
+        margin-bottom: 20px; /* Ajoute un espace entre les éléments */
+        border: 1px solid #eee; /* Bordure légère pour les cartes */
+        padding: 15px;
+      }
+      .num{opacity:.12;color:#111;}
+      .q b::after { display: none; } /* Hide accordion icons in print */
+      .q span { display: block !important; } /* Show all accordion content in print */
+
+      /* Specific print styles for steps */
+      section.steps { padding: 20px 0; }
+      .steps-grid {
+        display: block; /* Stack cards vertically */
+        gap: 0;
+      }
+      .card {
+        min-height: auto;
+        transform: none !important;
+        opacity: 1 !important;
+        margin-bottom: 20px;
+        page-break-inside: avoid; /* Prevent breaking cards across pages */
+        border: 1px solid #eee;
+        padding: 15px;
+      }
+      .card:hover {
+        transform: none;
+        box-shadow: none;
+      }
+      .card h3 { font-size: 1.3rem; margin-top: 0; }
+      .card p { color: #333; }
+      .card .badge {
+        position: static;
+        margin-bottom: 10px;
+        display: inline-flex;
+        background: #f0f0f0; /* Couleur neutre pour les badges en impression */
+        color: #333;
+        box-shadow: none;
+        border: 1px solid #ddd;
+      }
+      .card .num { display: none; } /* Hide large numbers in print */
+      .tip { background: #f0f8ff; border-color: #aaddff; color: #333; }
+      .list { padding-left: 25px; }
+      .list li { margin-bottom: 5px; }
+
+      /* Specific print styles for checklist/errors/faq */
+      section.split { padding: 20px 0; }
+      .split-grid {
+        display: block; /* Stack panels vertically */
+        gap: 0;
+      }
+      .panel {
+        margin-bottom: 20px;
+        page-break-inside: avoid;
+        border: 1px solid #eee;
+        padding: 15px;
+      }
+      .panel h4 { font-size: 1.2rem; margin-top: 0; }
+      .panel .pill {
+        margin-bottom: 10px;
+        display: inline-flex;
+        background: #f0f0f0; /* Couleur neutre pour les pills en impression */
+        color: #333;
+        box-shadow: none;
+        border: 1px solid #ddd;
+      }
+      .q { border-bottom: 1px dashed #ccc; padding-bottom: 10px; margin-bottom: 10px; }
+      .q:last-child { border-bottom: none; margin-bottom: 0; }
+      .q b { font-weight: bold; color: #222; }
+      .q span { color: #555; }
+    }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 1080px){.hero-stats{grid-template-columns:1fr 1fr}}
+    @media (max-width: 920px){
+      .steps-grid{grid-template-columns:1fr 1fr}
+      .split-grid{grid-template-columns:1fr}
+    }
+
+    /* Ajustements pour les smartphones (paysage et portrait) */
+    @media (max-width: 640px) {
+      h1.title {
+        font-size: clamp(2rem, 8vw + .5rem, 3.8rem); /* Réduire la taille du titre */
+      }
+      .subtitle {
+        font-size: 0.95rem; /* Légère réduction de la taille du sous-titre */
+      }
+      .hero-stats {
+        grid-template-columns: 1fr; /* Une colonne pour les statistiques */
+        gap: 10px; /* Réduire l'espacement */
+      }
+      .btn {
+        padding: 0.8rem 1rem; /* Réduire le padding des boutons */
+        font-size: 0.9rem; /* Réduire la taille de la police des boutons */
+      }
+      header.hero {
+        padding: 60px 0 80px; /* Réduire le padding de l'en-tête */
+      }
+      .quote-card {
+        grid-template-columns: 1fr; /* Une colonne pour la citation */
+        padding: 20px; /* Réduire le padding de la carte de citation */
+        text-align: center; /* Centrer le texte de la citation */
+      }
+      .quote-card i {
+        font-size: 2.8rem; /* Réduire la taille de l'icône de citation */
+        margin-bottom: 10px; /* Ajouter un espace sous l'icône */
+      }
+      blockquote {
+        font-size: 1rem; /* Réduire la taille de la police de la citation */
+      }
+      .steps-grid {
+        grid-template-columns: 1fr; /* Une colonne pour les cartes d'étapes */
+        gap: 16px; /* Réduire l'espacement entre les cartes */
+      }
+      .card {
+        min-height: unset; /* Supprimer la hauteur minimale fixe */
+        padding: 16px; /* Réduire le padding des cartes */
+      }
+      .card h3 {
+        font-size: 1.05rem; /* Réduire la taille du titre de la carte */
+      }
+      .badge {
+        font-size: 0.75rem; /* Réduire la taille de la police du badge */
+        padding: 0.3rem 0.5rem; /* Réduire le padding du badge */
+      }
+      .num {
+        font-size: 70px; /* Réduire la taille du numéro */
+        left: -5px; /* Ajuster la position */
+        top: -15px; /* Ajuster la position */
+      }
+      .panel {
+        padding: 18px; /* Réduire le padding des panneaux */
+      }
+      .q b {
+        font-size: 0.95rem; /* Réduire la taille de la police des questions FAQ */
+      }
+      .q span {
+        font-size: 0.9rem; /* Réduire la taille de la police des réponses FAQ */
+      }
+      .cta-box {
+        padding: 20px; /* Réduire le padding de la boîte CTA */
+      }
+      .cta-box h2 {
+        font-size: 1.5rem; /* Réduire la taille du titre CTA */
+      }
+      .step-detail-content {
+        padding: 25px; /* Réduire le padding de l'overlay de détail */
+        width: 95%; /* Augmenter la largeur pour les très petits écrans */
+      }
+      .step-detail-content h2 {
+        font-size: 1.8rem; /* Réduire la taille du titre de l'overlay */
+      }
+      .close-btn {
+        font-size: 1.8rem; /* Réduire la taille du bouton de fermeture */
+        top: 15px;
+        right: 15px;
+      }
+    }
+
+    /* Ajustements pour les très petits écrans (ex: iPhone SE, Galaxy S5) */
+    @media (max-width: 375px) {
+      h1.title {
+        font-size: clamp(1.8rem, 10vw + .5rem, 3rem); /* Réduire encore la taille du titre */
+      }
+      .subtitle {
+        font-size: 0.9rem;
+      }
+      .btn {
+        padding: 0.7rem 0.9rem;
+        font-size: 0.85rem;
+      }
+      .quote-card i {
+        font-size: 2.4rem;
+      }
+      blockquote {
+        font-size: 0.95rem;
+      }
+      .card h3 {
+        font-size: 1rem;
+      }
+      .num {
+        font-size: 60px;
+      }
+      .step-detail-content {
+        padding: 20px;
+      }
+      .step-detail-content h2 {
+        font-size: 1.6rem;
+      }
+    }
+
+    /* ============ STEP DETAIL OVERLAY ============ */
+    .step-detail-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      overflow-y: auto; /* Allow scrolling for long content */
+    }
+    .step-detail-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .step-detail-content {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 800px;
+      width: 90%;
+      max-height: 90vh; /* Hauteur max de 90% de la vue */
+      overflow-y: auto; /* Scroll si le contenu dépasse */
+      position: relative;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .step-detail-overlay.active .step-detail-content {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .step-detail-content h2 {
+      font-family: "Playfair Display", serif;
+      font-weight: 800;
+      font-size: 2.2rem;
+      margin-top: 0;
+      background:linear-gradient(135deg, #fff, #c9d0ff 60%);-webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .step-detail-content h4 {
+        color: var(--accent);
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    .step-detail-content p, .step-detail-content ul {
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    .step-detail-content ul {
+        padding-left: 20px;
+    }
+    .step-detail-content ul li {
+        margin-bottom: 5px;
+    }
+    .step-detail-content .tip {
+      margin-top: 20px;
+      background: rgba(0,212,255,.15); /* Slightly darker for contrast */
+      border-left-color: var(--accent);
+    }
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+    .close-btn:hover {
+      color: var(--text);
+    }
+
+    div.panel h2 {
+      font-size: 22px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Fixed Progress Bar at top -->
+  <div class="progress-container" id="progressContainer">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="orb" aria-hidden="true"></div>
+    <div class="container">
+      <div class="brand">
+        <span class="logo-icon"><i class='bx bxs-plane'></i></span> NextStage
+      </div>
+      <span class="pill"><i class='bx bxs-star'></i> Guide Premium</span>
+      <h1 class="title">6 étapes clés<br>pour réussir <span style="white-space:nowrap">Campus France</span></h1>
+      <p class="subtitle">Un guide clair, moderne et actionnable pour t’aider à réussir chaque phase — de l’ouverture du compte à la demande de visa. Inclut une <strong>checklist documents</strong>, les <strong>erreurs à éviter</strong> et une <strong>FAQ rapide</strong>.</p>
+
+      <div class="hero-stats">
+        <div class="stat"><div>Temps de lecture</div><b>5 min</b></div>
+        <div class="stat"><div>Étapes</div><b>6</b></div>
+        <div class="stat"><div>Score de clarté</div><b>10/10</b></div>
+      </div>
+
+      <div class="grid" style="margin-top:22px">
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn" href="mailto:nextsttage@gmail.com"><i class='bx bxs-envelope'></i> Contactez-nous</a>
+          <a class="btn ghost" href="#etapes"><i class='bx bx-chevrons-down'></i>Commencer</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="sep" aria-hidden="true"></div>
+
+  <!-- QUOTE -->
+  <section class="quote">
+    <div class="container">
+      <div class="quote-card" id="quote-card-parallax">
+        <i class='bx bxs-quote-left'></i>
+        <div>
+          <blockquote>La différence entre une personne qui réussit et les autres, ce n’est pas un manque de force, ni un manque de connaissances, mais plutôt un manque de volonté.</blockquote>
+          <div class="quote-author">— Vince Lombardi</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="intro">
+    <div class="container grid" style="gap:12px">
+      <p class="lead">Bienvenue ! Beaucoup d’étudiants se sentent perdus face à la procédure. Avec ces <strong>6 étapes</strong>, tu auras une vision <strong>claire</strong>, <strong>simple</strong> et <strong>efficace</strong> pour réussir ton dossier et l’entretien.</p>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section id="etapes" class="steps">
+    <div class="container">
+      <div class="steps-grid">
+        <!-- Étape 1 -->
+        <article class="card reveal" data-step="1">
+          <div class="num">1</div>
+          <span class="badge"><i class='bx bx-check-shield'></i> ESSENTIEL</span>
+          <h3>Créer & compléter ton compte</h3>
+          <p>Rends-toi sur le portail Campus France. Crée ton compte et renseigne toutes tes informations personnelles avec exactitude.</p>
+          <ul class="list">
+            <li>Adresse mail <strong>professionnelle</strong> : nom.prénom</li>
+            <li>Infos = identiques au passeport</li>
+            <li>Active l’authentification à 2 facteurs</li>
+          </ul>
+          <div class="tip"><i class='bx bxs-bolt'></i> Astuce : note tes identifiants dans un gestionnaire (Google Doc, Word...).</div>
+        </article>
+        <!-- Étape 2 -->
+        <article class="card reveal" data-step="2">
+          <div class="num">2</div>
+          <span class="badge" style="background:linear-gradient(135deg,#ffd166,#fff1a6);"><i class='bx bxs-folder-open'></i> DOCUMENTS</span>
+          <h3>Préparer ses documents</h3>
+          <p>Assure-toi de préparer tous tes documents essentiels : Passeport valide, Relevés de notes et diplômes, CV et lettre de motivation, Tests de français si nécessaire : TCF, DELF ou DALF</p>
+          <ul class="list">
+            <li>Scan en <strong>PDF net</strong>.</li>
+            <li>Noms propres : <em>Nom_Prenom_Diplome.pdf</em></li>
+            <li>Traductions officielles si besoin</li>
+          </ul>
+          <div class="tip"><i class='bx bxs-bolt'></i> Astuce : utilise un seul <strong>dossier Google Drive</strong> pour tout centraliser.</div>
+        </article>
+        <!-- Étape 3 -->
+        <article class="card reveal" data-step="3">
+          <div class="num">3</div>
+          <span class="badge" style="background:linear-gradient(135deg,#7C4DFF,#9f6cff);color:#fff"><i class='bx bxs-graduation'></i> PARCOURS</span>
+          <h3>Choisir ses formations</h3>
+          <p>Sélectionne des universités cohérentes avec ton profil et ton projet. Évite de tout mélanger.</p>
+          <ul class="list">
+            <li>Fil conducteur clair (ex. Maths → Info)</li>
+            <li>3 choix pour L1.</li>
+            <li>7 choix pour les autres niveaux.</li>
+            <li>Vérifie les <strong>pré-requis</strong> et dates</li>
+          </ul>
+          <div class="tip"><i class='bx bxs-bolt'></i> Astuce : garde un <strong>plan A/B</strong> pour maximiser les chances.</div>
+        </article>
+        <!-- Étape 4 -->
+        <article class="card reveal" data-step="4">
+          <div class="num">4</div>
+          <span class="badge" style="background:linear-gradient(135deg,#00D4FF,#67e8f9);"><i class='bx bxs-credit-card'></i> PAIEMENT</span>
+          <h3>Payer les frais Campus France</h3>
+          <p>Les frais varient selon le pays (ex. Algérie : ~20 000 DA). Vérifie les moyens de paiement acceptés.</p>
+          <ul class="list">
+            <li>Capture d’écran + reçu conservés</li>
+            <li>Vérifie les délais de validation</li>
+          </ul>
+          <div class="tip"><i class='bx bxs-bolt'></i> Astuce : anticipe les files d’attente en période de pic.</div>
+        </article>
+        <!-- Étape 5 -->
+        <article class="card reveal" data-step="5">
+          <div class="num">5</div>
+          <span class="badge" style="background:linear-gradient(135deg,#59f3b6,#b7ffd9);"><i class='bx bxs-message-dots'></i> ENTRETIEN</span>
+          <h3>Passer l’entretien Campus France</h3>
+          <p>L’agent vérifie la cohérence de ton projet et ta motivation.</p>
+          <ul class="list">
+            <li>Pitch : Pourquoi ce domaine / la France / cette université</li>
+            <li>Projette-toi : stages, poursuite d’études</li>
+            <li>Parle de ton <strong>plan financier</strong></li>
+          </ul>
+          <div class="tip"><i class='bx bxs-bolt'></i> Astuce : entraîne-toi 2×10 min avec un ami, filme-toi.</div>
+        </article>
+        <!-- Étape 6 -->
+        <article class="card reveal" data-step="6">
+          <div class="num">6</div>
+          <span class="badge" style="background:linear-gradient(135deg,#ff7ab6,#ffb3d6);"><i class='bx bxs-plane-alt'></i> VISA</span>
+          <h3>Demander ton visa étudiant</h3>
+          <p>Après acceptation, constitue le dossier : préinscription, ressources, logement, assurance, etc.</p>
+          <ul class="list">
+            <li>Check la <strong>checklist consulat</strong></li>
+            <li>Délais de rendez-vous : anticipe</li>
+            <li>Copies papier + PDF sur clé</li>
+          </ul>
+          <div class="tip"><i class='bx bxs-bolt'></i> Astuce : prépare un <strong>dossier physique</strong> bien classé (séparateurs).</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP DETAIL OVERLAY (Hidden by default) -->
+  <div class="step-detail-overlay" id="stepDetailOverlay">
+    <div class="step-detail-content">
+      <button class="close-btn" id="closeStepDetail" aria-label="Fermer">&times;</button>
+      <h2 id="stepDetailTitle"></h2>
+      <div id="stepDetailBody"></div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST + ERREURS + FAQ -->
+  <section class="split">
+    <div class="container split-grid">
+      <div class="panel">
+        <span class="pill"><i class='bx bxs-check-circle'></i> Checklist documents</span>
+        <h4>Les indispensables</h4>
+        <ul class="list">
+          <li>Passeport valide</li>
+          <li>Diplômes + relevés (originaux + copies)</li>
+          <li>CV + Lettre de motivation</li>
+          <li>TCF/DELF/DALF</li>
+          <li>Attestation de préinscription</li>
+          <li>Email de fin de procédure Campus France</li>
+          <li>Preuve de ressources / hébergement</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <span class="pill"><i class='bx bxs-error-alt'></i> Erreurs à éviter</span>
+        <div class="q"><b>❌ Dossier incohérent</b><span>Évite de mélanger des filières sans logique. Ton projet doit avoir un fil conducteur clair et justifié.</span></div>
+        <div class="q"><b>❌ Docs flous / incomplets</b><span>Scanne proprement en PDF (300 dpi minimum) et nomme les fichiers de manière claire (ex: Nom_Prenom_DiplomeLicence.pdf). Vérifie que toutes les pages sont présentes et lisibles.</span></div>
+        <div class="q"><b>❌ Retards</b><span>Commence tôt, surtout pour les rendez-vous consulaires et les tests de langue. Les délais peuvent être longs en période de forte demande.</span></div>
+        <div class="q"><b>❌ Français non préparé</b><span>Prépare 5 réponses types à l’oral pour l'entretien Campus France : présentation, projet d'études, projet professionnel, pourquoi la France, pourquoi cette université. Entraîne-toi à les dire fluidement.</span></div>
+        <div class="q"><b>❌ Manque de preuves financières</b><span>Assure-toi d'avoir des justificatifs solides pour tes ressources financières et ton hébergement en France. C'est un point crucial pour l'obtention du visa.</span></div>
+        <div class="q"><b>❌ Ne pas vérifier les pré-requis</b><span>Chaque formation a des pré-requis spécifiques (diplômes, niveau de langue, matières étudiées). Ne postule pas sans les avoir vérifiés, tu perdrais du temps et de l'argent.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="split" style="padding-top:0">
+    <div class="container split-grid">
+      <div class="panel">
+        <span class="pill"><i class='bx bxs-help-circle'></i> FAQ rapide</span>
+        <div class="q"><b>Combien de formations choisir ?</b><span>3 choix pour L1 et 7 choix pour les autres niveaux, faut que ça soit cohérent avec ton profil et ton projet. Trop de choix incohérents peuvent nuire à la crédibilité de ton dossier.</span></div>
+        <div class="q"><b>Faut-il un niveau minimum en français ?</b><span>Oui, la plupart des établissements exigent un niveau B2 minimum au TCF ou DELF/DALF. Pour certaines filières ou universités prestigieuses, un niveau C1 peut être demandé. Vérifie toujours les exigences spécifiques de chaque formation.</span></div>
+        <div class="q"><b>Entretien : combien de temps ?</b><span>L'entretien Campus France dure généralement entre 10 et 20 minutes. C'est un échange où l'agent évalue la cohérence de ton projet et ta motivation.</span></div>
+        <div class="q"><b>Paiement : quels moyens ?</b><span>Les moyens de paiement des frais Campus France varient selon le pays. Consulte la page locale de Campus France de ton pays pour connaître les options acceptées (virement bancaire, carte, etc.).</span></div>
+        <div class="q"><b>Puis-je travailler en France avec un visa étudiant ?</b><span>Oui, les étudiants étrangers peuvent travailler jusqu'à 964 heures par an (environ 20 heures par semaine) pendant leurs études en France.</span></div>
+        <div class="q"><b>Que faire si ma demande est refusée ?</b><span>En cas de refus, tu peux demander les motifs de la décision et, dans certains cas, faire un recours gracieux ou hiérarchique. Il est crucial de comprendre la raison du refus pour améliorer une future candidature.</span></div>
+        <div class="q"><b>Quand commencer les démarches ?</b><span>Il est fortement conseillé de commencer les démarches dès le début du mois d'octobre, surtout pour les tests de langue et la préparation des documents.</span></div>
+      </div>
+      <div class="panel">
+  <span class="pill"><i class='bx bxs-user-check'></i> À propos de NextStage</span>
+  <h2>NextStage – Votre partenaire pour réussir le parcours Campus France</h2>
+  <p>Un accompagnement personnalisé et humain pour chaque étape de vos démarches :</p>
+  <ul class="list">
+    <li>Stratégie de choix d’établissements adaptée à votre profil</li>
+    <li>Simulation d’entretien pour être prêt le jour J</li>
+    <li>Réponse rapide sous 24h par e-mail</li>
+    <li>Documents modèles prêts à l’usage : CV, lettre de motivation, pitch</li>
+  </ul>
+  <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+    <a class="btn" href="mailto:nextsttage@gmail.com"><i class='bx bxs-envelope'></i> Contact</a>
+    <a class="btn ghost" href="tel:+213559387068"><i class='bx bxs-phone-call'></i> +213 559 38 70 68</a>
+  </div>
+</div>
+
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <div class="cta-box">
+        <span class="pill" style="margin-inline:auto"><i class='bx bxs-rocket'></i> NextStage t’accompagne</span>
+        <h2>Besoin d’un coup de main à chaque étape ?</h2>
+        <p>Coaching entretien, vérification de dossier, choix des formations, stratégie Campus France.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:6px">
+          <a class="btn" href="mailto:nextsttage@gmail.com"><i class='bx bxs-envelope'></i> nextsttage@gmail.com</a>
+          <a class="btn ghost" href="tel:+213559387068"><i class='bx bxs-phone-call'></i> +213 559 38 70 68</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">© <span id="year"></span> NextStage — Votre partenaire pour réussir le parcours Campus France.</div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Scroll-based Progress Bar (Fixed at top)
+    const progressBar = document.getElementById('progressBar');
+    const progressContainer = document.getElementById('progressContainer');
+
+    function updateProgressBar() {
+      const totalHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrollPosition = window.scrollY;
+      const progress = (scrollPosition / totalHeight) * 100;
+
+      progressBar.style.width = `${progress}%`;
+
+      // Show/hide the progress bar container based on scroll position
+      if (scrollPosition > 50) { // Show after scrolling 50px down
+        progressContainer.classList.add('show-progress');
+      } else {
+        progressContainer.classList.remove('show-progress');
+      }
+    }
+
+    // Initial call and event listener
+    updateProgressBar();
+    window.addEventListener('scroll', updateProgressBar);
+    window.addEventListener('resize', updateProgressBar); // Update on resize as well
+
+    // Reveal on scroll for cards
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('show');
+          io.unobserve(e.target);
+        }
+      })
+    },{threshold:.15});
+    revealEls.forEach(el=>io.observe(el));
+
+    // Accordion functionality for FAQ and Erreurs à éviter
+    document.querySelectorAll('.panel .q').forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('active');
+      });
+    });
+
+    // Parallax effect for Quote Card
+    const quoteCard = document.getElementById('quote-card-parallax');
+    if (quoteCard) {
+      window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        const speed = 0.05;
+        const yPos = -(scrollY * speed);
+        quoteCard.style.setProperty('--parallax-y', `${yPos}px`);
+      });
+    }
+
+    // Step Detail Overlay Logic
+    const stepDetailOverlay = document.getElementById('stepDetailOverlay');
+    const stepDetailTitle = document.getElementById('stepDetailTitle');
+    const stepDetailBody = document.getElementById('stepDetailBody');
+    const closeStepDetailBtn = document.getElementById('closeStepDetail');
+    const stepCards = document.querySelectorAll('.steps-grid .card');
+
+    const stepDetails = {
+  1: {
+    title: "Étape 1 : Créer & compléter ton compte Campus France",
+    content: `
+      <p>Cette première étape est la fondation de toute ta procédure Campus France. Une attention particulière doit être portée à la précision des informations.</p>
+      <h4>Détails clés :</h4>
+      <ul>
+        <li><strong>Choix de l'adresse mail :</strong> Utilise une adresse mail professionnelle (prénom.nom@exemple.com) que tu consultes régulièrement. Évite les adresses fantaisistes.</li>
+        <li><strong>Conformité des informations :</strong> Toutes les informations personnelles (nom, prénom, date de naissance, etc.) doivent être strictement identiques à celles figurant sur ton passeport. Toute divergence peut entraîner des retards ou des refus.</li>
+        <li><strong>Authentification à deux facteurs (2FA) :</strong> Active impérativement la 2FA pour sécuriser ton compte. Cela protège tes données et évite tout accès non autorisé.</li>
+        <li><strong>Mot de passe sécurisé :</strong> Choisis un mot de passe complexe et unique. Utilise un gestionnaire de mots de passe (Bitwarden, 1Password, LastPass) pour le stocker en toute sécurité et éviter de l'oublier.</li>
+        <li><strong>Remplir toutes les sections :</strong> Ne laisse aucune section vide. Même si une information te semble mineure, elle peut être requise.</li>
+      </ul>
+      <div class="tip"><i class='bx bxs-bolt'></i> <strong>Astuce Pro :</strong> Crée un document Word ou Google Docs où tu notes toutes tes informations importantes (identifiants, mots de passe, dates clés, numéros de dossier) pour un accès rapide et sécurisé.</div>
+    `
+  },
+  2: {
+    title: "Étape 2 : Préparer ses documents avec rigueur",
+    content: `
+      <p>La qualité et l'organisation de tes documents sont primordiales. Un dossier bien préparé est un signe de sérieux et de professionnalisme.</p>
+      <h4>Détails clés :</h4>
+      <ul>
+        <li><strong>Tests de langue (TCF/DELF/DALF) :</strong> Si la formation ou l'établissement l'exige, passe le test de français approprié (TCF, DELF ou DALF selon le niveau requis) ou d'anglais (TOEFL, IELTS) à l'avance, car les résultats peuvent prendre du temps à être délivrés.</li>
+        <li><strong>Documents essentiels :</strong>
+          <ul>
+            <li>Passeport (page d'identité)</li>
+            <li>Relevés de notes de toutes tes années d'études supérieures (et parfois du baccalauréat)</li>
+            <li>Diplômes obtenus (ou attestations de réussite)</li>
+            <li>Curriculum Vitae (CV) détaillé et adapté au format français/européen</li>
+            <li>Lettre de motivation (LM) personnalisée pour chaque formation</li>
+            <li>Attestations de stage, de travail, de bénévolat (si pertinent)</li>
+          </ul>
+        </li>
+        <li><strong>Qualité des scans :</strong> Scanne tous les documents en format PDF, avec une résolution de 300 dpi minimum pour une lisibilité parfaite. Assure-toi que les bords ne sont pas coupés et que l'éclairage est uniforme.</li>
+        <li><strong>Nommage des fichiers :</strong> Adopte une nomenclature claire et cohérente (ex: <code>Nom_Prenom_Passeport.pdf</code>, <code>Nom_Prenom_ReleveLicence1.pdf</code>, <code>Nom_Prenom_CV.pdf</code>).</li>
+        <li><strong>Traductions officielles :</strong> Si tes documents ne sont pas en français ou en anglais, ils doivent être traduits par un traducteur assermenté. Anticipe ce délai et son coût.</li>
+      </ul>
+      <div class="tip"><i class='bx bxs-bolt'></i> <strong>Astuce Pro :</strong> Crée un dossier Google Drive (ou Dropbox/OneDrive) avec des sous-dossiers pour chaque type de document (Diplômes, Relevés, Pièces d'identité, etc.). Partage ce dossier avec toi-même sur différents appareils pour un accès facile.</div>
+    `
+  },
+  3: {
+    title: "Étape 3 : Choisir ses formations avec stratégie",
+    content: `
+      <p>Le choix des formations est une étape cruciale qui doit refléter la cohérence de ton parcours et la solidité de ton projet professionnel.</p>
+      <h4>Détails clés :</h4>
+      <ul>
+        <li><strong>Cohérence du projet :</strong> Tes choix de formations doivent s'inscrire dans une logique de progression par rapport à tes études antérieures et ton projet professionnel futur. Évite de postuler à des filières trop différentes sans justification solide.</li>
+        <li><strong>Nombre de choix :</strong> Faut faire des choix pertinents. Il vaut mieux avoir quelques candidatures très solides plutôt que de nombreuses candidatures dispersées et peu travaillées.</li>
+        <li><strong>Recherche approfondie :</strong> Pour chaque formation, vérifie :
+          <ul>
+            <li>Le programme détaillé des cours</li>
+            <li>Les pré-requis académiques (diplômes, matières spécifiques)</li>
+            <li>Les dates limites de candidature (très importantes !)</li>
+            <li>Les débouchés professionnels</li>
+            <li>La réputation de l'université ou de l'école</li>
+          </ul>
+        </li>
+        <li><strong>Lettre de motivation personnalisée :</strong> Adapte ta lettre pour chaque formation. Mets en avant ce qui t'attire spécifiquement et comment cela s'aligne avec tes objectifs.</li>
+        <li><strong>Plan A/B :</strong> Avoir un plan A (choix prioritaires) et un plan B (choix de secours ou formations similaires dans d'autres villes/universités) peut augmenter tes chances d'admission.</li>
+      </ul>
+      <div class="tip"><i class='bx bxs-bolt'></i> <strong>Astuce Pro :</strong> Utilise un tableau (Excel ou Google Sheets) pour lister toutes les formations qui t'intéressent, avec pré-requis, dates limites et documents spécifiques à préparer. Cela t'aidera à rester organisé.</div>
+    `
+  },
+  4: {
+    title: "Étape 4 : Payer les frais Campus France",
+    content: `
+      <p>Le paiement des frais de dossier Campus France est une étape administrative obligatoire pour valider ta candidature.</p>
+      <h4>Détails clés :</h4>
+      <ul>
+        <li><strong>Montant des frais :</strong> Le montant varie selon le pays. Par exemple, en Algérie, il est généralement autour de 20 000 DA, mais vérifie toujours le montant exact sur le site officiel.</li>
+        <li><strong>Moyens de paiement :</strong> Les options diffèrent selon les bureaux Campus France : virement bancaire, paiement en ligne par carte, ou paiement en espèces. Renseigne-toi sur les modalités locales.</li>
+        <li><strong>Preuve de paiement :</strong> Conserve précieusement la preuve de paiement (reçu, capture d'écran de la transaction, relevé bancaire). Tu devras la télécharger sur ta plateforme Campus France et/ou la présenter lors de l'entretien.</li>
+        <li><strong>Délais de validation :</strong> Le paiement n'est pas toujours instantané. Prévois quelques jours pour que ton statut soit mis à jour.</li>
+      </ul>
+      <div class="tip"><i class='bx bxs-bolt'></i> <strong>Astuce Pro :</strong> N'attends pas la dernière minute pour payer. Les systèmes peuvent être surchargés et un paiement tardif peut bloquer ton dossier.</div>
+    `
+  },
+  5: {
+    title: "Étape 5 : Passer l’entretien Campus France",
+    content: `
+      <p>L'entretien Campus France est une étape clé pour présenter ton projet d'études et convaincre l'agent de ta motivation et de la cohérence de ton parcours.</p>
+      <h4>Détails clés :</h4>
+      <ul>
+        <li><strong>Objectif :</strong> L'agent évalue ta motivation, la cohérence de ton projet d'études et professionnel, ta connaissance du système éducatif français et ta capacité à t'exprimer en français.</li>
+        <li><strong>Préparation du pitch :</strong> Prépare un pitch clair et concis (2-3 minutes) répondant aux questions : Qui es-tu ? Pourquoi ce domaine ? Pourquoi la France ? Pourquoi cette formation ? Quel est ton projet professionnel après les études ?</li>
+        <li><strong>Plan financier :</strong> Sois prêt à présenter tes ressources, garant, bourses, etc.</li>
+        <li><strong>Questions fréquentes :</strong> Anticipe les questions sur tes choix de formations, notes, expériences, motivations et culture française.</li>
+        <li><strong>Entraînement :</strong> Exerce-toi à l'oral avec un ami, un professeur, ou filme-toi. Simule des questions-réponses pour gérer stress et fluidité.</li>
+        <li><strong>Attitude :</strong> Sois ponctuel, habillé de manière appropriée, confiant, souriant et poli. Écoute attentivement et réponds clairement.</li>
+      </ul>
+      <div class="tip"><i class='bx bxs-bolt'></i> <strong>Astuce Pro :</strong> Prépare des exemples concrets pour illustrer tes motivations et compétences (projets personnels, livres, expériences).</div>
+    `
+  },
+  6: {
+    title: "Étape 6 : Demander ton visa étudiant",
+    content: `
+      <p>Après l'acceptation d'un établissement français, la dernière étape majeure est la demande de visa étudiant.</p>
+      <h4>Détails clés :</h4>
+      <ul>
+        <li><strong>Documents requis :</strong> Selon le consulat, ils incluent généralement :
+          <ul>
+            <li>Passeport valide</li>
+            <li>Formulaire de demande de visa rempli</li>
+            <li>Lettre d'acceptation/préinscription de l'établissement</li>
+            <li>Preuve de ressources financières suffisantes (montant indicatif ~615€/mois, à vérifier)</li>
+            <li>Preuve d'hébergement en France (attestation d'accueil, bail, réservation temporaire)</li>
+            <li>Photos d'identité récentes et conformes</li>
+            <li>Dossier personnel</li>
+          </ul>
+        </li>
+        <li><strong>Checklist consulaire :</strong> Télécharge et suis scrupuleusement la checklist fournie par le consulat. Ne manque aucun document.</li>
+        <li><strong>Délais de rendez-vous :</strong> Les rendez-vous peuvent être très longs, surtout en été. Anticipe dès que possible.</li>
+        <li><strong>Organisation du dossier :</strong> Prépare un dossier physique bien organisé et garde des copies numériques sur une clé USB ou cloud.</li>
+      </ul>
+      <div class="tip"><i class='bx bxs-bolt'></i> <strong>Astuce Pro :</strong> Fais plusieurs copies de tous tes documents (originaux et traduits). Une version avec toi, une dans tes bagages et une version numérique sur le cloud.</div>
+    `
+  }
+};
+
+
+    stepCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const stepNum = card.dataset.step;
+        const detail = stepDetails[stepNum];
+        if (detail) {
+          stepDetailTitle.innerHTML = detail.title;
+          stepDetailBody.innerHTML = detail.content;
+          stepDetailOverlay.classList.add('active');
+          document.body.style.overflow = 'hidden'; // Prevent scrolling background
+        }
+      });
+    });
+
+    closeStepDetailBtn.addEventListener('click', () => {
+      stepDetailOverlay.classList.remove('active');
+      document.body.style.overflow = ''; // Restore scrolling
+    });
+
+    // Close overlay when clicking outside content
+    stepDetailOverlay.addEventListener('click', (e) => {
+      if (e.target === stepDetailOverlay) {
+        stepDetailOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Close overlay with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && stepDetailOverlay.classList.contains('active')) {
+        stepDetailOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  </script>
+</body>
+</html>
